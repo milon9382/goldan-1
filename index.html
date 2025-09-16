@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Golden Restaurant — Menu & Booking</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent:#c0392b;
+      --muted:#7f8c8d;
+      --bg:#f7f6f3;
+      --card:#ffffff;
+      --maxw:1100px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: linear-gradient(180deg,#f2f2f2 0%, #fff 100%);
+      color:#222;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+    }
+
+    header{
+      background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=60');
+      background-size:cover;
+      background-position:center;
+      color:white;
+      padding:60px 16px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+    }
+
+    .container{width: min(96%, var(--maxw));margin: 0 auto;}
+    .brand{display:flex;align-items:center;gap:16px;}
+    .logo{width:70px;height:70px;border-radius:10px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;box-shadow: 0 6px 18px rgba(0,0,0,0.25) inset;backdrop-filter: blur(4px);font-family: 'Noto Sans Bengali', serif;}
+    .brand h1{font-size:28px;margin:0;font-weight:700}
+    .brand p{margin:0;font-size:13px;opacity:0.95}
+
+    .hero-card{margin-top:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;color:#222;background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));padding:20px;border-radius:12px;box-shadow: 0 8px 30px rgba(0,0,0,0.12);max-width:1000px;}
+    .hero-left h2{margin:0;font-size:22px}
+    .hero-left p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.5;}
+    .cta{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;font-weight:600;text-decoration:none;transition:0.3s;}
+    .cta:hover{background:#e74c3c;}
+
+    main{padding:32px 16px}
+    .menu{width:min(96%, var(--maxw));margin:0 auto;}
+    .section{margin-bottom:36px;}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;}
+    .section-title{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;font-weight:700;display:inline-block;font-size:16px;font-family: 'Noto Sans Bengali', serif;}
+    .section-sub{color:var(--muted);font-size:13px}
+
+    .grid{display:grid;grid-template-columns: repeat(2, 1fr);gap:16px;}
+    @media (max-width:800px){ .grid{grid-template-columns: 1fr} .hero-card{flex-direction:column;align-items:flex-start} }
+
+    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow: 0 6px 18px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .item-left{display:flex;gap:12px;align-items:flex-start;min-width:0}
+    .item-name{font-weight:600;font-size:15px}
+    .item-bn{font-family:'Noto Sans Bengali', serif;font-weight:500;color:var(--muted);font-size:13px;margin-top:4px}
+    .price{font-weight:700;color:var(--accent);min-width:72px;text-align:right}
+    .note{font-size:13px;color:var(--muted);margin-top:12px}
+
+    footer{padding:20px 16px;color:var(--muted);font-size:13px;text-align:center}
+
+    .booking{background:linear-gradient(180deg, #fff 0%, #f7f6f3 100%);padding:24px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);margin-top:40px;max-width:600px;}
+    .booking h3{margin-bottom:16px;color:var(--accent);font-size:20px;}
+    .booking label{display:block;margin-bottom:6px;font-weight:500;}
+    .booking input, .booking select{width:100%;padding:10px;margin-bottom:16px;border:1px solid #ccc;border-radius:8px;}
+    .booking button{background:var(--accent);color:white;border:none;padding:10px 16px;border-radius:8px;font-weight:600;cursor:pointer;transition:0.3s;}
+    .booking button:hover{background:#e74c3c;}
+    .booking-success{margin-top:10px;color:green;font-weight:600;font-size:14px;}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div class="logo">গোল্ডেন</div>
+        <div>
+          <h1>Golden Restaurant</h1>
+          <p>Fresh • Tasty • Reliable — মেনু তালিকা ও দাম</p>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-left">
+          <h2>স্বাগতম — আমাদের সম্পূর্ণ মেনু</h2>
+          <p>নীচে ছবির মেনু অনুযায়ী সব আইটেম যুক্ত করা হয়েছে — ভেজ ও নন-ভেজ স্যুপ, কোল্ড ড্রিংকস, স্ন্যাকস ইত্যাদি। বাড়ি থেকে অর্ডার বা সিট বুকিং করার জন্য নিচের ফর্ম ব্যবহার করুন।</p>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Open • Delivery available</div>
+          <a class="cta" href="#menu">মেনু দেখুন</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="menu" class="menu">
+
+      <!-- COLD DRINKS -->
+      <div class="section">
+        <div class="section-head">
+          <div>
+            <span class="section-title">COLD DRINKS / WATER</span>
+            <div class="section-sub">কোল্ড ড্রিংকস / জল</div>
+          </div>
+          <div class="section-sub">Fresh & chilled</div>
+        </div>
+        <div class="grid">
+          <div class="card"><div class="item-left"><div><div class="item-name">Water (500 ml.)</div><div class="item-bn">পানি (৫০০ মিলি.)</div></div></div><div class="price">10/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Water (1 Ltr.)</div><div class="item-bn">পানি (১ লি.)</div></div></div><div class="price">20/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Water (2 Ltr.)</div><div class="item-bn">পানি (২ লি.)</div></div></div><div class="price">35/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Fresh Lime Water</div><div class="item-bn">ফ্রেশ লাইম ওয়াটার</div></div></div><div class="price">25/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Cold Drinks (regular)</div><div class="item-bn">কোল্ড ড্রিংকস</div></div></div><div class="price">25/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Masala Cold Drinks</div><div class="item-bn">মসলা কোল্ড ড্রিংকস</div></div></div><div class="price">40/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Mocktel</div><div class="item-bn">মকটেল</div></div></div><div class="price">120/-</div></div>
+        </div>
+      </div>
+
+      <!-- SOUPS (VEG) -->
+      <div class="section">
+        <div class="section-head">
+          <div>
+            <span class="section-title">SOUP (VEG.)</span>
+            <div class="section-sub">সূপ (ভেজ)</div>
+          </div>
+          <div class="section-sub">Vegetarian soups</div>
+        </div>
+        <div class="grid">
+          <div class="card"><div class="item-left"><div><div class="item-name">Sweet Corn Soup</div><div class="item-bn">সুইট কর্ন সূপ</div></div></div><div class="price">70/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Hot & Sour Soup</div><div class="item-bn">হট & সাওয়ার সূপ</div></div></div><div class="price">80/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Veg. Clear Soup</div><div class="item-bn">ভেজ ক্লিয়ার সূপ</div></div></div><div class="price">60/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Veg. Mushroom Soup</div><div class="item-bn">ভেজ মাশরুম সূপ</div></div></div><div class="price">90/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Veg. Soup</div><div class="item-bn">ভেজ সূপ</div></div></div><div class="price">50/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Veg. Noodles Soup</div><div class="item-bn">ভেজ নুডলস সূপ</div></div></div><div class="price">80/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Tomato Soup</div><div class="item-bn">টমাটো সূপ</div></div></div><div class="price">70/-</div></div>
+        </div>
+      </div>
+
+      <!-- SOUPS (NON-VEG) -->
+      <div class="section">
+        <div class="section-head">
+          <div>
+            <span class="section-title">SOUP (NON-VEG.)</span>
+            <div class="section-sub">সূপ (নন-ভেজ)</div>
+          </div>
+          <div class="section-sub">Chicken soups</div>
+        </div>
+        <div class="grid">
+          <div class="card"><div class="item-left"><div><div class="item-name">Chi. Sweet Corn Soup</div><div class="item-bn">চিকেন সুইট কর্ন সূপ</div></div></div><div class="price">90/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Chi. Hot & Sour Soup</div><div class="item-bn">চিকেন হট & সাওয়ার সূপ</div></div></div><div class="price">100/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Chi. Clear Soup</div><div class="item-bn">চিকেন ক্লিয়ার সূপ</div></div></div><div class="price">70/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Chi. Manchow Soup</div><div class="item-bn">চিকেন মানচাও সূপ</div></div></div><div class="price">110/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Chi. Mushroom Soup</div><div class="item-bn">চিকেন মাশরুম সূপ</div></div></div><div class="price">110/-</div></div>
+          <div class="card"><div class="item-left"><div><div class="item-name">Chi. Noodles Soup</div><div class="item-bn">চিকেন নুডলস সূপ</div></div></div><div class="price">90/-</div></div>
+        </div>
+      </div>
+
+      <!-- VEG SNACKS -->
+      <div class="section">
+       <!-- Booking Form -->
+      <div class="booking">
+        <h3>সিট বুকিং / অর্ডার ফর্ম</h3>
+        <form id="bookingForm">
+          <label for="name">Name</label>
+          <input type="text" id="name" required>
+
+          <label for="phone">phone number</label>
+          <input type="tel" id="phone" required>
+
+          <label for="date">Date</label>
+          <input type="date" id="date" required>
+
+          <label for="time">time</label>
+          <input type="time" id="time" required>
+
+          <label for="seats">Seat selection তো</label>
+          <select id="seats" required>
+            <option value="">--  --</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5+</option>
+          </select>
+
+          <label for="order">অর্ডার (যদি থাকে)</label>
+          <input type="text" id="order" placeholder="যেমন: ২টি Paneer Pakora, ১টি Sweet Corn Soup">
+
+          <button type="submit">বুকিং করুন</button>
+          <div class="booking-success" id="successMsg"></div>
+        </form>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    © Golden Restaurant — Menu & Booking. Contact: 017xx-xxxxxx
+  </footer>
+
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const seats = document.getElementById('seats').value;
+      const order = document.getElementById('order').value;
+
+      // এখানে তুমি চাইলে সার্ভার/ডাটাবেসে পাঠাতে পারবে
+      document.getElementById('successMsg').innerText = ${name}, আপনার বুকিং সফল হয়েছে! আমরা ${date} তারিখে ${time} সময়, ${seats} সিট নিশ্চিত করছি।;
+      
+      // ফর্ম রিসেট
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
